@@ -32,10 +32,11 @@ def main(args):
 
     vgg = Vgg19().to(device)
 
+    content_features = vgg(content)
+    style_features = vgg(style)
+
     for step in range(args.total_step):
         target_features = vgg(target)
-        content_features = vgg(content)
-        style_features = vgg(style)
 
         content_loss = 0.0
         style_loss = 0.0
@@ -67,8 +68,8 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--content_image', type=str, default=r'.\images\content-images\Leonardo.jpg')
-    parser.add_argument('--style_image', type=str, default=r'.\images\style-images\picasso_selfport1907.jpg')
+    parser.add_argument('--content_image', type=str, default=r'./images/content-images/Leonardo.jpg')
+    parser.add_argument('--style_image', type=str, default=r'./images/style-images/picasso_selfport1907.jpg')
     parser.add_argument('--image_size', type=int, default=400)
     parser.add_argument('--image_scale', type = float, default=None)
     parser.add_argument('--total_step', type=int, default=2000)
